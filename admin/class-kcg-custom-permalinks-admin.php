@@ -27,15 +27,12 @@ class Custom_Permalinks_Admin {
 		/*
 		 * Css file suffix (version number with extension).
 		 */
-		$this->css_file_suffix = '-' . CUSTOM_PERMALINKS_VERSION . '.min.css';
+		$this->css_file_suffix = '-' . KCG_CUSTOM_PERMALINKS_VERSION . '.min.css';
 
 		add_action( 'admin_init', array( $this, 'privacy_policy' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
-		add_filter(
-			'plugin_action_links_' . CUSTOM_PERMALINKS_BASENAME,
-			array( $this, 'settings_link' )
-		);
+		
 	}
 
 	/**
@@ -63,35 +60,14 @@ class Custom_Permalinks_Admin {
 			'cp-post-permalinks',
 			array( $this, 'post_permalinks_page' )
 		);
-		$taxonomy_permalinks_hook = add_submenu_page(
-			'cp-post-permalinks',
-			'Taxonomies Permalinks',
-			'Taxonomies Permalinks',
-			'cp_view_category_permalinks',
-			'cp-taxonomy-permalinks',
-			array( $this, 'taxonomy_permalinks_page' )
-		);
-		$about_page               = add_submenu_page(
-			'cp-post-permalinks',
-			'About KCG Custom Permalinks',
-			'About',
-			'install_plugins',
-			'cp-about-plugins',
-			array( $this, 'about_plugin' )
-		);
+	
 
-		add_action(
-			'load-' . $post_permalinks_hook,
-			'Custom_Permalinks_Post_Types_Table::instance'
-		);
-		add_action(
-			'load-' . $taxonomy_permalinks_hook,
-			'Custom_Permalinks_Taxonomies_Table::instance'
-		);
-		add_action(
-			'admin_print_styles-' . $about_page . '',
-			array( $this, 'add_about_style' )
-		);
+		// add_action(
+		// 	'load-' . $post_permalinks_hook,
+		// 	'Custom_Permalinks_Post_Types_Table::instance'
+		// );
+		
+		
 	}
 
 	/**
@@ -110,7 +86,7 @@ class Custom_Permalinks_Admin {
 				KCG_CUSTOM_PERMALINKS_FILE
 			),
 			array(),
-			CUSTOM_PERMALINKS_VERSION
+			KCG_CUSTOM_PERMALINKS_VERSION
 		);
 	}
 
@@ -122,9 +98,34 @@ class Custom_Permalinks_Admin {
 	 *
 	 * @return void
 	 */
-	public function post_permalinks_page() {
-		Custom_Permalinks_Post_Types_Table::output();
 
+	public  function output(){
+		print <<< FOOBAR
+		<div class="wrap">
+			<h1 class="wp-heading-inline">
+				Thank you For Installing KCG Custom Permalinks
+			</h1>
+				<div class="">
+					<div>
+						<h2>Documentation</h2>
+						<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, incidunt.
+						</p>
+					</div>
+					<div>
+						<h2>Uses Guide</h2>
+						<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, incidunt.
+						</p>
+					</div>
+				</div>
+			</div>
+FOOBAR;
+	}
+
+	public function post_permalinks_page() {
+		//Custom_Permalinks_Post_Types_Table::output();
+		$this->output();
 		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1 );
 	}
 
@@ -136,11 +137,7 @@ class Custom_Permalinks_Admin {
 	 *
 	 * @return void
 	 */
-	public function taxonomy_permalinks_page() {
-		Custom_Permalinks_Taxonomies_Table::output();
-
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1 );
-	}
+	
 
 	/**
 	 * Add About Plugins Page.
@@ -150,12 +147,7 @@ class Custom_Permalinks_Admin {
 	 *
 	 * @return void
 	 */
-	public function about_plugin() {
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-about.php';
-		new Custom_Permalinks_About();
-
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1 );
-	}
+	
 
 	/**
 	 * Add Plugin Support and Follow Message in the footer of Admin Pages.
@@ -166,20 +158,16 @@ class Custom_Permalinks_Admin {
 	 * @return string Shows version, website link and twitter.
 	 */
 	public function admin_footer_text() {
-		$cp_footer_text = __( 'KCG Custom Permalinks version', 'custom-permalinks' ) .
-		' ' . CUSTOM_PERMALINKS_VERSION . ' ' .
-		__( 'by', 'custom-permalinks' ) .
-		' <a href="https://www.yasglobal.com/" target="_blank">' .
-			__( 'Sami Ahmed Siddiqui', 'custom-permalinks' ) .
+		$cp_footer_text = __( 'KCG Custom Permalinks version', 'kcg-custom-permalinks' ) .
+		' ' . KCG_CUSTOM_PERMALINKS_VERSION . ' ' .
+		__( 'by', 'kcg-custom-permalinks' ) .
+		' <a href="www.kingscrestglobal.com" target="_blank">' .
+			__( 'kingscrestglobal.com', 'kcg-custom-permalinks' ) .
 		'</a>' .
 		' - ' .
-		'<a href="https://wordpress.org/support/plugin/custom-permalinks" target="_blank">' .
-			__( 'Support forums', 'custom-permalinks' ) .
-		'</a>' .
-		' - ' .
-		'Follow on Twitter:' .
-		' <a href="https://twitter.com/samisiddiqui91" target="_blank">' .
-			__( 'Sami Ahmed Siddiqui', 'custom-permalinks' ) .
+		'Visit Us:' .
+		' <a href="https://www.kingscrestglobal.com" target="_blank">' .
+			__( 'kingscrestglobal', 'kcg-custom-permalinks' ) .
 		'</a>';
 
 		return $cp_footer_text;
@@ -197,23 +185,7 @@ class Custom_Permalinks_Admin {
 	 * @return array Plugin Basic Links and added some custome link for Settings,
 	 * Contact, and About.
 	 */
-	public function settings_link( $links ) {
-		$about_link   = '<a href="admin.php?page=cp-about-plugins" target="_blank">' .
-			__( 'About', 'custom-permalinks' ) .
-		'</a>';
-		$support_link = '<a href="https://www.custompermalinks.com/#pricing-section" target="_blank">' .
-			__( 'Premium Support', 'custom-permalinks' ) .
-		'</a>';
-		$contact_link = '<a href="https://www.custompermalinks.com/contact-us/" target="_blank">' .
-			__( 'Contact', 'custom-permalinks' ) .
-		'</a>';
 
-		array_unshift( $links, $contact_link );
-		array_unshift( $links, $support_link );
-		array_unshift( $links, $about_link );
-
-		return $links;
-	}
 
 	/**
 	 * Add Privacy Policy about the Plugin.
@@ -229,7 +201,7 @@ class Custom_Permalinks_Admin {
 		}
 
 		$cp_privacy = esc_html__(
-			'This plugin collect information about the site like URL, WordPress version etc. This plugin doesn\'t collect any user related information. To have any kind of further query please feel free to',
+			'This plugin doesn\'t collect any user related information.',
 			'custom-permalinks'
 		);
 		$cp_privacy = $cp_privacy .

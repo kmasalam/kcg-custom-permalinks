@@ -51,7 +51,7 @@ class Custom_Permalinks_Updates {
 		$updates = array(
 			'action'         => $this->method,
 			'admin_email'    => $admin_email,
-			'plugin_version' => CUSTOM_PERMALINKS_VERSION,
+			'plugin_version' => KCG_CUSTOM_PERMALINKS_VERSION,
 			'site_name'      => $site_name,
 			'site_url'       => $site_url,
 			'wp_version'     => $wp_version,

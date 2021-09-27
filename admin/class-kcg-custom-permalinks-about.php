@@ -39,7 +39,7 @@ class Custom_Permalinks_About {
 						esc_html_e(
 							// translators: After `v` there will be a Plugin version.
 							// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
-							'KCG Custom Permalinks v' . CUSTOM_PERMALINKS_VERSION,
+							'KCG Custom Permalinks v' . KCG_CUSTOM_PERMALINKS_VERSION,
 							'custom-permalinks'
 						);
 					?>

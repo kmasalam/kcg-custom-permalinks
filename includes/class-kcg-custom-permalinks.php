@@ -38,7 +38,7 @@ class Custom_Permalinks {
 	private function define_constants() {
 		$this->define( 'CUSTOM_PERMALINKS_BASENAME', plugin_basename( KCG_CUSTOM_PERMALINKS_FILE ) );
 		$this->define( 'CUSTOM_PERMALINKS_PATH', plugin_dir_path( KCG_CUSTOM_PERMALINKS_FILE ) );
-		$this->define( 'CUSTOM_PERMALINKS_VERSION', $this->version );
+		$this->define( 'KCG_CUSTOM_PERMALINKS_VERSION', $this->version );
 	}
 
 	/**
@@ -143,7 +143,7 @@ class Custom_Permalinks {
 		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-updates.php';
 		new Custom_Permalinks_Updates( 'activate' );
 
-		update_option( 'custom_permalinks_plugin_version', CUSTOM_PERMALINKS_VERSION );
+		update_option( 'custom_permalinks_plugin_version', KCG_CUSTOM_PERMALINKS_VERSION );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class Custom_Permalinks {
 			$current_version = get_option( 'custom_permalinks_plugin_version', -1 );
 
 			if ( -1 === $current_version
-				|| $current_version < CUSTOM_PERMALINKS_VERSION
+				|| $current_version < KCG_CUSTOM_PERMALINKS_VERSION
 			) {
 				self::activate_details();
 				self::add_roles();
