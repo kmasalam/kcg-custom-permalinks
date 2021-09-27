@@ -1,0 +1,95 @@
+# Translation of Plugins - KCG Custom Permalinks - Stable (latest release) in English (New Zealand)
+# This file is distributed under the same license as the Plugins - KCG Custom Permalinks - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2018-01-04 09:39:51+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/2.4.0-alpha\n"
+"Language: en_NZ\n"
+"Project-Id-Version: Plugins - KCG Custom Permalinks - Stable (latest release)\n"
+
+#. Author URI of the plugin/theme
+msgid "https://www.yasglobal.com/web-design-development/wordpress/custom-permalinks/"
+msgstr "https://www.yasglobal.com/web-design-development/wordpress/custom-permalinks/"
+
+#. Author of the plugin/theme
+msgid "Sami Ahmed Siddiqui"
+msgstr "Sami Ahmed Siddiqui"
+
+#. Description of the plugin/theme
+msgid "Set KCG Custom Permalinks on a per-post basis"
+msgstr "Set KCG Custom Permalinks on a per-post basis"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/custom-permalinks/"
+msgstr "https://wordpress.org/plugins/custom-permalinks/"
+
+#. Plugin Name of the plugin/theme
+msgid "KCG Custom Permalinks"
+msgstr "KCG Custom Permalinks"
+
+#: frontend/class-kcg-custom-permalinks-form.php:238
+msgid "Leave blank to disable"
+msgstr "Leave blank to disable"
+
+#: frontend/class-kcg-custom-permalinks-form.php:125
+#: frontend/class-kcg-custom-permalinks-form.php:151
+#: frontend/class-kcg-custom-permalinks-form.php:212
+msgid "Custom Permalink"
+msgstr "Custom Permalink"
+
+#: frontend/class-kcg-custom-permalinks-form.php:108
+msgid "Permalink:"
+msgstr "Permalink:"
+
+#: frontend/class-kcg-custom-permalinks-form.php:95
+msgid "View Post"
+msgstr "View Post"
+
+#: frontend/class-kcg-custom-permalinks-form.php:95
+msgid "View Page"
+msgstr "View Page"
+
+#: admin/class-kcg-custom-permalinks-admin.php:203
+msgid "Category/Tags Permalinks"
+msgstr "Category/Tags Permalinks"
+
+#: admin/class-kcg-custom-permalinks-admin.php:169
+#: admin/class-kcg-custom-permalinks-admin.php:332
+msgid "Permalink"
+msgstr "Permalink"
+
+#: admin/class-kcg-custom-permalinks-admin.php:168
+#: admin/class-kcg-custom-permalinks-admin.php:331
+msgid "Type"
+msgstr "Type"
+
+#: admin/class-kcg-custom-permalinks-admin.php:167
+#: admin/class-kcg-custom-permalinks-admin.php:330
+msgid "Title"
+msgstr "Title"
+
+#: admin/class-kcg-custom-permalinks-admin.php:96
+#: admin/class-kcg-custom-permalinks-admin.php:150
+#: admin/class-kcg-custom-permalinks-admin.php:230
+#: admin/class-kcg-custom-permalinks-admin.php:306
+msgid "Delete Permalinks"
+msgstr "Delete Permalinks"
+
+#: admin/class-kcg-custom-permalinks-admin.php:95
+#: admin/class-kcg-custom-permalinks-admin.php:149
+#: admin/class-kcg-custom-permalinks-admin.php:229
+#: admin/class-kcg-custom-permalinks-admin.php:305
+msgid "Bulk Actions"
+msgstr "Bulk Actions"
+
+#: admin/class-kcg-custom-permalinks-admin.php:47
+msgid "PostTypes Permalinks"
+msgstr "PostTypes Permalinks"
+
+#: admin/class-kcg-custom-permalinks-admin.php:43
+msgid "There is some error to proceed your request. Please retry with your request or contact to the plugin author."
+msgstr "There is some error to proceed your request. Please retry with your request or contact to the plugin author."
