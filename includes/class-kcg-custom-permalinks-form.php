@@ -2,7 +2,7 @@
 /**
  * KCG Custom Permalinks Form.
  *
- * @package CustomPermalinks
+ * @package KCGCustomPermalinks
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -128,7 +128,7 @@ class Custom_Permalinks_Form {
 	public function permalink_edit_box() {
 		add_meta_box(
 			'custom-permalinks-edit-box',
-			__( 'KCG Custom Permalinks', 'custom-permalinks' ),
+			__( 'KCG Custom Permalinks', 'kcg-custom-permalinks' ),
 			array( $this, 'meta_edit_form' ),
 			null,
 			'normal',
@@ -498,7 +498,7 @@ class Custom_Permalinks_Form {
 			}
 		}
 
-		return '<strong>' . __( 'Permalink:', 'custom-permalinks' ) . '</strong> ' . $content;
+		return '<strong>' . __( 'Permalink:', 'kcg-custom-permalinks' ) . '</strong> ' . $content;
 	}
 
 	/**
@@ -648,7 +648,7 @@ class Custom_Permalinks_Form {
 		if ( $render_containers ) {
 			echo '<table class="form-table" id="custom_permalink_form">' .
 				'<tr>' .
-					'<th scope="row">' . esc_html__( 'KCG Custom Permalink', 'custom-permalinks' ) . '</th>' .
+					'<th scope="row">' . esc_html__( 'KCG Custom Permalink', 'kcg-custom-permalinks' ) . '</th>' .
 					'<td>';
 		}
 		if ( '' === $permalink ) {
@@ -695,7 +695,7 @@ class Custom_Permalinks_Form {
 		if ( $render_containers ) {
 			echo '<br />' .
 			'<small>' .
-				esc_html__( 'Leave blank to disable', 'custom-permalinks' ) .
+				esc_html__( 'Leave blank to disable', 'kcg-custom-permalinks' ) .
 			'</small>' .
 			'</td>' .
 			'</tr>' .
@@ -789,15 +789,7 @@ class Custom_Permalinks_Form {
 		}
 	}
 
-	/**
-	 * Delete term.
-	 *
-	 * @access public
-	 *
-	 * @param int $term_id Term ID.
-	 *
-	 * @return void
-	 */
+
 	public function delete_term_permalink( $term_id ) {
 		$table = get_option( 'custom_permalink_table' );
 		if ( $table ) {
@@ -954,14 +946,7 @@ class Custom_Permalinks_Form {
 
 	/**
 	 * Delete the permalink for the page selected as the static Homepage.
-	 *
-	 * @since 1.6.0
-	 * @access public
-	 *
-	 * @param int $prev_homepage_id Page ID of previously set Front Page.
-	 * @param int $new_homepage_id  Page ID of current Front Page.
-	 *
-	 * @return void
+	
 	 */
 	public function static_homepage( $prev_homepage_id, $new_homepage_id ) {
 		if ( $prev_homepage_id !== $new_homepage_id ) {

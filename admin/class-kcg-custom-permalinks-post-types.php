@@ -1,17 +1,9 @@
 <?php
-/**
- * KCG Custom Permalinks Post Types.
- *
- * @package KCGCustomPermalinks
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Post Types Permalinks table class.
- */
 final class Custom_Permalinks_Post_Types {
 	
 	public static function total_permalinks() {
@@ -24,12 +16,10 @@ final class Custom_Permalinks_Post_Types {
 				LEFT JOIN $wpdb->postmeta AS pm ON (p.ID = pm.post_id)
 				WHERE pm.meta_key = 'custom_permalink' AND pm.meta_value != ''
 			";
-
-			// phpcs:disable WordPress.Security.NonceVerification.Recommended
-			// Include search in total results.
+			
 			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
 				$search_value = ltrim( sanitize_text_field( $_REQUEST['s'] ), '/' );
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+				
 				$total_posts = $wpdb->get_var(
 					$wpdb->prepare(
 						"SELECT COUNT(p.ID) FROM {$wpdb->posts} AS p
@@ -40,9 +30,9 @@ final class Custom_Permalinks_Post_Types {
 						'%' . $wpdb->esc_like( $search_value ) . '%'
 					)
 				);
-				// phpcs:enable WordPress.Security.NonceVerification.Recommended
+				
 			} else {
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+				
 				$total_posts = $wpdb->get_var(
 					"SELECT COUNT(p.ID) FROM {$wpdb->posts} AS p
 						LEFT JOIN {$wpdb->postmeta} AS pm ON (p.ID = pm.post_id)
@@ -56,17 +46,6 @@ final class Custom_Permalinks_Post_Types {
 		return $total_posts;
 	}
 
-	/**
-	 * Retrieve permalink's data from the database.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @param int $per_page    Maximum Results needs to be shown on the page.
-	 * @param int $page_number Current page.
-	 *
-	 * @return array Title, Post Type and Permalink set using this plugin.
-	 */
 	public static function get_permalinks( $per_page = 20, $page_number = 1 ) {
 		global $wpdb;
 
@@ -76,8 +55,6 @@ final class Custom_Permalinks_Post_Types {
 			$order_by    = 'p.ID';
 			$order       = null;
 
-			// phpcs:disable WordPress.Security.NonceVerification.Recommended
-			// Sort the items.
 			switch ( isset( $_REQUEST['orderby'] ) ? strtolower( sanitize_text_field( $_REQUEST['orderby'] ) ) : '' ) {
 				case 'title':
 					$order_by = 'p.post_title';
@@ -102,11 +79,9 @@ final class Custom_Permalinks_Post_Types {
 					$order = 'DESC';
 					break;
 			}
-
-			// Include search in total results.
 			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
 				$search_value = ltrim( sanitize_text_field( $_REQUEST['s'] ), '/' );
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+			
 				$posts = $wpdb->get_results(
 					$wpdb->prepare(
 						"SELECT p.ID, p.post_title, p.post_type, pm.meta_value
@@ -125,7 +100,7 @@ final class Custom_Permalinks_Post_Types {
 					ARRAY_A
 				);
 			} else {
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+				
 				$posts = $wpdb->get_results(
 					$wpdb->prepare(
 						"SELECT p.ID, p.post_title, p.post_type, pm.meta_value
@@ -141,8 +116,7 @@ final class Custom_Permalinks_Post_Types {
 					ARRAY_A
 				);
 			}
-			// phpcs:enable WordPress.Security.NonceVerification.Recommended
-
+		
 			wp_cache_set( 'post_type_results', $posts, 'custom_permalinks' );
 		}
 

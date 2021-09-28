@@ -13,20 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Create admin menu, add privacy policy etc.
  */
 class Custom_Permalinks_Admin {
-	/**
-	 * Css file suffix extension.
-	 *
-	 * @var string
-	 */
 
-
-	/**
-	 * Initializes WordPress hooks.
-	 */
 	public function __construct() {
-		/*
-		 * Css file suffix (version number with extension).
-		 */
+		
 		
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
@@ -54,14 +43,6 @@ class Custom_Permalinks_Admin {
 		
 	}
 
-	/**
-	 * Add about page style.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @return void
-	 */
 	public function kcg_load_style() {
 		wp_enqueue_style(
 			'custom-permalinks-about-style',
@@ -74,15 +55,7 @@ class Custom_Permalinks_Admin {
 		);
 	}
 
-	/**
-	 * Calls another Function which shows the Post Types Permalinks Page.
-	 *
-	 * @since 1.2.0
-	 * @access public
-	 *
-	 * @return void
-	 */
-
+	
 	public  function kcg_admin_content(){
 		$content = '<div class="wrap">
 			<h1 class="wp-heading-inline">

@@ -985,16 +985,6 @@ class Custom_Permalinks_Frontend {
 		return false;
 	}
 
-	/**
-	 * Fix double slash issue with canonical of Yoast SEO specially with WPML.
-	 *
-	 * @since 1.6.0
-	 * @access public
-	 *
-	 * @param string $canonical The canonical.
-	 *
-	 * @return string the canonical after removing double slash if exist.
-	 */
 	public function fix_canonical_double_slash( $canonical ) {
 		$canonical = $this->remove_double_slash( $canonical );
 

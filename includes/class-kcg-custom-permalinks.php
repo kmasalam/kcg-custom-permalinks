@@ -2,7 +2,7 @@
 /**
  * KCG Custom Permalinks setup.
  *
- * @package CustomPermalinks
+ * @package KCGCustomPermalinks
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -93,7 +93,7 @@ class Custom_Permalinks {
 	 * Add role for the view post and category permalinks and by default assign
 	 * it to the administrator if administrator role exist.
 	 *
-	 * @since 1.2.22
+	 * @since 0.0.1
 	 * @access public
 	 */
 	public static function add_roles() {
