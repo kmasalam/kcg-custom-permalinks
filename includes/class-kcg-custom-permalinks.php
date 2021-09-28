@@ -66,10 +66,6 @@ class Custom_Permalinks {
 		include_once CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-form.php';
 		include_once CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-frontend.php';
 		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-admin.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-post-types.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-post-types-table.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-taxonomies.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-taxonomies-table.php';
 
 		$cp_form = new Custom_Permalinks_Form();
 		$cp_form->init();
@@ -88,16 +84,6 @@ class Custom_Permalinks {
 		register_activation_hook(
 			KCG_CUSTOM_PERMALINKS_FILE,
 			array( 'Custom_Permalinks', 'add_roles' )
-		);
-
-		register_activation_hook(
-			KCG_CUSTOM_PERMALINKS_FILE,
-			array( 'Custom_Permalinks', 'activate_details' )
-		);
-
-		register_deactivation_hook(
-			KCG_CUSTOM_PERMALINKS_FILE,
-			array( 'Custom_Permalinks', 'deactivate_details' )
 		);
 
 		add_action( 'plugins_loaded', array( $this, 'check_loaded_plugins' ) );
@@ -139,12 +125,7 @@ class Custom_Permalinks {
 	 * @since 1.6.1
 	 * @access public
 	 */
-	public static function activate_details() {
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-updates.php';
-		new Custom_Permalinks_Updates( 'activate' );
 
-		update_option( 'custom_permalinks_plugin_version', KCG_CUSTOM_PERMALINKS_VERSION );
-	}
 
 	/**
 	 * Sent details when plugin gets deactivated.
@@ -152,11 +133,7 @@ class Custom_Permalinks {
 	 * @since 1.6.1
 	 * @access public
 	 */
-	public static function deactivate_details() {
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-updates.php';
-		new Custom_Permalinks_Updates( 'deactivate' );
-	}
-
+	
 	/**
 	 * Check if role not exist then call the function to add it. Update site
 	 * details if plugin gets updated. Also, loads the plugin language files to
@@ -172,7 +149,7 @@ class Custom_Permalinks {
 			if ( -1 === $current_version
 				|| $current_version < KCG_CUSTOM_PERMALINKS_VERSION
 			) {
-				self::activate_details();
+				
 				self::add_roles();
 			}
 		}

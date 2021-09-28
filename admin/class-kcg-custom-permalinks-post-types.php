@@ -2,7 +2,7 @@
 /**
  * KCG Custom Permalinks Post Types.
  *
- * @package CustomPermalinks
+ * @package KCGCustomPermalinks
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -13,14 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Post Types Permalinks table class.
  */
 final class Custom_Permalinks_Post_Types {
-	/**
-	 * Returns the count of records in the database.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @return null|int
-	 */
+	
 	public static function total_permalinks() {
 		global $wpdb;
 

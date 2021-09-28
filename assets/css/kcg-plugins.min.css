@@ -1,7 +1,9 @@
 .wrap{
     margin:2em auto 1em;
-    max-width:1090px
+    max-width:1090px;
+    background: #fff;
 }
+
 .wrap .float{
     width:calc(100% - 188px);
     float:left;
@@ -102,9 +104,13 @@ a .star svg:hover polygon{
 .kcg_admin_parent_container {
     display: flex;
 }
-
+.wrap{
+    padding: 30px 30px;
+}
 .kcg_admin_container {
     padding: 10px 10px;
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 @media (min-width:746px){
     .product p{
