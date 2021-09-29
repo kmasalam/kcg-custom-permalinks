@@ -85,17 +85,10 @@ class Custom_Permalinks {
 			KCG_CUSTOM_PERMALINKS_FILE,
 			array( 'Custom_Permalinks', 'add_roles' )
 		);
-
 		add_action( 'plugins_loaded', array( $this, 'check_loaded_plugins' ) );
 	}
 
-	/**
-	 * Add role for the view post and category permalinks and by default assign
-	 * it to the administrator if administrator role exist.
-	 *
-	 * @since 0.0.1
-	 * @access public
-	 */
+	
 	public static function add_roles() {
 		$admin_role      = get_role( 'administrator' );
 		$cp_role         = get_role( 'custom_permalinks_manager' );
