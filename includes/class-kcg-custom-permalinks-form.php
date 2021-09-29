@@ -148,7 +148,7 @@ class Custom_Permalinks_Form {
 	 * @param bool   $protected Whether the key is protected or not.
 	 * @param string $meta_key Meta key.
 	 *
-	 * @return bool `true` for the kcg_custom_permalink key.
+	 * @return bool `true` for the KCGcustom_permalink key.
 	 */
 	public function protect_meta( $protected, $meta_key ) {
 		if ( 'kcg_custom_permalink' === $meta_key ) {
