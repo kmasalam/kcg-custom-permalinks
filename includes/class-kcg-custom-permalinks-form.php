@@ -148,10 +148,10 @@ class Custom_Permalinks_Form {
 	 * @param bool   $protected Whether the key is protected or not.
 	 * @param string $meta_key Meta key.
 	 *
-	 * @return bool `true` for the custom_permalink key.
+	 * @return bool `true` for the kcg_custom_permalink key.
 	 */
 	public function protect_meta( $protected, $meta_key ) {
-		if ( 'custom_permalink' === $meta_key ) {
+		if ( 'kcg_custom_permalink' === $meta_key ) {
 			$protected = true;
 		}
 
@@ -370,7 +370,7 @@ class Custom_Permalinks_Form {
 	 */
 	public function save_post( $post_id, $post ) {
 		if ( ! isset( $_REQUEST['_custom_permalinks_post_nonce'] )
-			&& ! isset( $_REQUEST['custom_permalink'] )
+			&& ! isset( $_REQUEST['kcg_custom_permalink'] )
 		) {
 			return;
 		}
@@ -384,8 +384,8 @@ class Custom_Permalinks_Form {
 		$cp_frontend   = new Custom_Permalinks_Frontend();
 		$original_link = $cp_frontend->original_post_link( $post_id );
 
-		if ( ! empty( $_REQUEST['custom_permalink'] )
-			&& $_REQUEST['custom_permalink'] !== $original_link
+		if ( ! empty( $_REQUEST['kcg_custom_permalink'] )
+			&& $_REQUEST['kcg_custom_permalink'] !== $original_link
 		) {
 			$language_code = apply_filters(
 				'wpml_element_language_code',
@@ -398,7 +398,7 @@ class Custom_Permalinks_Form {
 
 			$permalink = $this->sanitize_permalink(
 				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				$_REQUEST['custom_permalink'],
+				$_REQUEST['kcg_custom_permalink'],
 				$language_code
 			);
 			$permalink = apply_filters(
@@ -407,7 +407,7 @@ class Custom_Permalinks_Form {
 				$post_id
 			);
 
-			update_post_meta( $post_id, 'custom_permalink', $permalink );
+			update_post_meta( $post_id, 'kcg_custom_permalink', $permalink );
 		}
 	}
 
@@ -421,7 +421,7 @@ class Custom_Permalinks_Form {
 	 * @return void
 	 */
 	public function delete_permalink( $post_id ) {
-		delete_metadata( 'post', $post_id, 'custom_permalink' );
+		delete_metadata( 'post', $post_id, 'kcg_custom_permalink' );
 	}
 
 	/**
@@ -437,14 +437,14 @@ class Custom_Permalinks_Form {
 	 */
 	private function get_permalink_html( $post, $meta_box = false ) {
 		$post_id   = $post->ID;
-		$permalink = get_post_meta( $post_id, 'custom_permalink', true );
+		$permalink = get_post_meta( $post_id, 'kcg_custom_permalink', true );
 
 		ob_start();
 
 		$cp_frontend = new Custom_Permalinks_Frontend();
 		if ( 'page' === $post->post_type ) {
 			$original_permalink = $cp_frontend->original_page_link( $post_id );
-			$view_post          = __( 'View Page', 'custom-permalinks' );
+			$view_post          = __( 'View Page', 'kcg-custom-permalinks' );
 		} else {
 			$post_type_name   = '';
 			$post_type_object = get_post_type_object( $post->post_type );
@@ -459,7 +459,7 @@ class Custom_Permalinks_Form {
 			}
 
 			$original_permalink = $cp_frontend->original_post_link( $post_id );
-			$view_post          = __( 'View', 'custom-permalinks' ) . $post_type_name;
+			$view_post          = __( 'View', 'kcg-custom-permalinks' ) . $post_type_name;
 		}
 		$this->get_permalink_form(
 			$permalink,
@@ -642,7 +642,7 @@ class Custom_Permalinks_Form {
 
 		// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<input value="' . $home_url . '" type="hidden" name="custom_permalinks_home_url" id="custom_permalinks_home_url" />' .
-		'<input value="' . $encoded_permalink . '" type="hidden" name="custom_permalink" id="custom_permalink" />';
+		'<input value="' . $encoded_permalink . '" type="hidden" name="kcg_custom_permalink" id="kcg_custom_permalink" />';
 		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if ( $render_containers ) {
@@ -717,7 +717,7 @@ class Custom_Permalinks_Form {
 		$term = get_term( $term_id );
 
 		if ( ! isset( $_REQUEST['_custom_permalinks_term_nonce'] )
-			&& ! isset( $_REQUEST['custom_permalink'] )
+			&& ! isset( $_REQUEST['kcg_custom_permalink'] )
 		) {
 			return;
 		}
@@ -741,7 +741,7 @@ class Custom_Permalinks_Form {
 
 				$new_permalink = ltrim(
 					// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					stripcslashes( $_REQUEST['custom_permalink'] ),
+					stripcslashes( $_REQUEST['kcg_custom_permalink'] ),
 					'/'
 				);
 				if ( empty( $new_permalink ) || '' === $new_permalink ) {
@@ -873,13 +873,13 @@ class Custom_Permalinks_Form {
 		if ( isset( $data['id'] ) && is_numeric( $data['id'] ) ) {
 			$post                               = get_post( $data['id'] );
 			$all_permalinks                     = array();
-			$all_permalinks['custom_permalink'] = get_post_meta(
+			$all_permalinks['kcg_custom_permalink'] = get_post_meta(
 				$data['id'],
-				'custom_permalink',
+				'kcg_custom_permalink',
 				true
 			);
 
-			if ( ! $all_permalinks['custom_permalink'] ) {
+			if ( ! $all_permalinks['kcg_custom_permalink'] ) {
 				if ( 'draft' === $post->post_status ) {
 					$view_post_link = '?';
 					if ( 'page' === $post->post_type ) {
@@ -894,9 +894,9 @@ class Custom_Permalinks_Form {
 					$all_permalinks['preview_permalink'] = $view_post_link;
 				}
 			} else {
-				$all_permalinks['custom_permalink'] = htmlspecialchars(
+				$all_permalinks['kcg_custom_permalink'] = htmlspecialchars(
 					urldecode(
-						$all_permalinks['custom_permalink']
+						$all_permalinks['kcg_custom_permalink']
 					)
 				);
 			}

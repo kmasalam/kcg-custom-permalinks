@@ -9,12 +9,12 @@ final class Custom_Permalinks_Post_Types {
 	public static function total_permalinks() {
 		global $wpdb;
 
-		$total_posts = wp_cache_get( 'total_posts_result', 'custom_permalinks' );
+		$total_posts = wp_cache_get( 'total_posts_result', 'kcg_custom_permalinks' );
 		if ( ! $total_posts ) {
 			$sql_query = "
 				SELECT COUNT(p.ID) FROM $wpdb->posts AS p
 				LEFT JOIN $wpdb->postmeta AS pm ON (p.ID = pm.post_id)
-				WHERE pm.meta_key = 'custom_permalink' AND pm.meta_value != ''
+				WHERE pm.meta_key = 'kcg_custom_permalink' AND pm.meta_value != ''
 			";
 			
 			if ( isset( $_REQUEST['s'] ) && ! empty( $_REQUEST['s'] ) ) {
@@ -24,7 +24,7 @@ final class Custom_Permalinks_Post_Types {
 					$wpdb->prepare(
 						"SELECT COUNT(p.ID) FROM {$wpdb->posts} AS p
 							LEFT JOIN {$wpdb->postmeta} AS pm ON (p.ID = pm.post_id)
-							WHERE pm.meta_key = 'custom_permalink'
+							WHERE pm.meta_key = 'kcg_custom_permalink'
 								AND pm.meta_value != ''
 								AND pm.meta_value LIKE %s",
 						'%' . $wpdb->esc_like( $search_value ) . '%'
@@ -36,11 +36,11 @@ final class Custom_Permalinks_Post_Types {
 				$total_posts = $wpdb->get_var(
 					"SELECT COUNT(p.ID) FROM {$wpdb->posts} AS p
 						LEFT JOIN {$wpdb->postmeta} AS pm ON (p.ID = pm.post_id)
-						WHERE pm.meta_key = 'custom_permalink' AND pm.meta_value != ''"
+						WHERE pm.meta_key = 'kcg_custom_permalink' AND pm.meta_value != ''"
 				);
 			}
 
-			wp_cache_set( 'total_posts_result', $total_posts, 'custom_permalinks' );
+			wp_cache_set( 'total_posts_result', $total_posts, 'kcg_custom_permalinks' );
 		}
 
 		return $total_posts;
@@ -49,7 +49,7 @@ final class Custom_Permalinks_Post_Types {
 	public static function get_permalinks( $per_page = 20, $page_number = 1 ) {
 		global $wpdb;
 
-		$posts = wp_cache_get( 'post_type_results', 'custom_permalinks' );
+		$posts = wp_cache_get( 'post_type_results', 'kcg_custom_permalinks' );
 		if ( ! $posts ) {
 			$page_offset = ( $page_number - 1 ) * $per_page;
 			$order_by    = 'p.ID';
@@ -87,7 +87,7 @@ final class Custom_Permalinks_Post_Types {
 						"SELECT p.ID, p.post_title, p.post_type, pm.meta_value
 							FROM {$wpdb->posts} AS p
 						LEFT JOIN {$wpdb->postmeta} AS pm ON (p.ID = pm.post_id)
-						WHERE pm.meta_key = 'custom_permalink'
+						WHERE pm.meta_key = 'kcg_custom_permalink'
 							AND pm.meta_value != ''
 							AND pm.meta_value LIKE %s
 						ORDER BY %s %s LIMIT %d, %d",
@@ -106,7 +106,7 @@ final class Custom_Permalinks_Post_Types {
 						"SELECT p.ID, p.post_title, p.post_type, pm.meta_value
 							FROM {$wpdb->posts} AS p
 						LEFT JOIN {$wpdb->postmeta} AS pm ON (p.ID = pm.post_id)
-						WHERE pm.meta_key = 'custom_permalink' AND pm.meta_value != ''
+						WHERE pm.meta_key = 'kcg_custom_permalink' AND pm.meta_value != ''
 						ORDER BY %s %s LIMIT %d, %d",
 						$order_by,
 						$order,
@@ -117,7 +117,7 @@ final class Custom_Permalinks_Post_Types {
 				);
 			}
 		
-			wp_cache_set( 'post_type_results', $posts, 'custom_permalinks' );
+			wp_cache_set( 'post_type_results', $posts, 'kcg_custom_permalinks' );
 		}
 
 		return $posts;

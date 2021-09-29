@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KCG Custom Permalinks
  * Plugin URI: https://www.kingscrestglobal.com/kcg/custom-permalinks
- * Description: Set KCG Custom Permalinks on a per-post page basis.
+ * Description: Set Permalinks on a per-post and page basis. This is very easy to use and this will not effect your rewrite url rules.
  * Version: 0.0.1
  * Requires at least: 2.6
  * Requires PHP: 5.4

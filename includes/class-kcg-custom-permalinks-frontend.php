@@ -120,8 +120,8 @@ class Custom_Permalinks_Frontend {
 	 * @return string permalink with language information.
 	 */
 	public function wpml_permalink_filter( $permalink, $language_code ) {
-		$custom_permalink   = $permalink;
-		$trailing_permalink = trailingslashit( home_url() ) . $custom_permalink;
+		$kcg_custom_permalink   = $permalink;
+		$trailing_permalink = trailingslashit( home_url() ) . $kcg_custom_permalink;
 		if ( $language_code ) {
 			$permalink = apply_filters(
 				'wpml_permalink',
@@ -132,7 +132,7 @@ class Custom_Permalinks_Frontend {
 			$wpml_href = str_replace( $site_url, '', $permalink );
 			if ( 0 === strpos( $wpml_href, '//' ) ) {
 				if ( 0 !== strpos( $wpml_href, '//' . $language_code . '/' ) ) {
-					$permalink = $site_url . '/' . $language_code . '/' . $custom_permalink;
+					$permalink = $site_url . '/' . $language_code . '/' . $kcg_custom_permalink;
 				}
 			}
 		} else {
@@ -157,7 +157,7 @@ class Custom_Permalinks_Frontend {
 		global $wpdb;
 
 		$cache_name = 'cp$_' . str_replace( '/', '-', $requested_url ) . '_#cp';
-		$posts      = wp_cache_get( $cache_name, 'custom_permalinks' );
+		$posts      = wp_cache_get( $cache_name, 'kcg_custom_permalinks' );
 
 		if ( ! $posts ) {
 			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -165,7 +165,7 @@ class Custom_Permalinks_Frontend {
 				$wpdb->prepare(
 					'SELECT p.ID, pm.meta_value, p.post_type, p.post_status ' .
 					" FROM $wpdb->posts AS p INNER JOIN $wpdb->postmeta AS pm ON (pm.post_id = p.ID) " .
-					" WHERE pm.meta_key = 'custom_permalink' " .
+					" WHERE pm.meta_key = 'kcg_custom_permalink' " .
 					' AND (pm.meta_value = %s OR pm.meta_value = %s) ' .
 					" AND p.post_status != 'trash' AND p.post_type != 'nav_menu_item' " .
 					" ORDER BY FIELD(post_status,'publish','private','pending','draft','auto-draft','inherit')," .
@@ -182,7 +182,7 @@ class Custom_Permalinks_Frontend {
 					$wpdb->prepare(
 						"SELECT p.ID, pm.meta_value, p.post_type, p.post_status FROM $wpdb->posts AS p " .
 						" LEFT JOIN $wpdb->postmeta AS pm ON (p.ID = pm.post_id) WHERE " .
-						" meta_key = 'custom_permalink' AND meta_value != '' AND " .
+						" meta_key = 'kcg_custom_permalink' AND meta_value != '' AND " .
 						' ( LOWER(meta_value) = LEFT(LOWER(%s), LENGTH(meta_value)) OR ' .
 						'   LOWER(meta_value) = LEFT(LOWER(%s), LENGTH(meta_value)) ) ' .
 						"  AND post_status != 'trash' AND post_type != 'nav_menu_item'" .
@@ -195,7 +195,7 @@ class Custom_Permalinks_Frontend {
 				);
 			}
 
-			wp_cache_set( $cache_name, $posts, 'custom_permalinks' );
+			wp_cache_set( $cache_name, $posts, 'kcg_custom_permalinks' );
 		}
 
 		return $posts;
@@ -548,7 +548,7 @@ class Custom_Permalinks_Frontend {
 			$this->request_uri = $_SERVER['REQUEST_URI'];
 		}
 
-		$custom_permalink   = '';
+		$kcg_custom_permalink   = '';
 		$original_permalink = '';
 
 		// Get request URI, strip parameters.
@@ -592,9 +592,9 @@ class Custom_Permalinks_Frontend {
 			 */
 			if ( ( is_single() || is_page() ) && ! empty( $wp_query->post ) ) {
 				$post             = $wp_query->post;
-				$custom_permalink = get_post_meta(
+				$kcg_custom_permalink = get_post_meta(
 					$post->ID,
-					'custom_permalink',
+					'kcg_custom_permalink',
 					true
 				);
 				if ( 'page' === $post->post_type ) {
@@ -604,11 +604,11 @@ class Custom_Permalinks_Frontend {
 				}
 			} elseif ( is_tag() || is_category() ) {
 				$the_term           = $wp_query->get_queried_object();
-				$custom_permalink   = $this->term_permalink( $the_term->term_id );
+				$kcg_custom_permalink   = $this->term_permalink( $the_term->term_id );
 				$original_permalink = $this->original_term_link( $the_term->term_id );
 			}
 		} else {
-			$custom_permalink = $posts[0]->meta_value;
+			$kcg_custom_permalink = $posts[0]->meta_value;
 			if ( 'page' === $posts[0]->post_type ) {
 				$original_permalink = $this->original_page_link( $posts[0]->ID );
 			} else {
@@ -616,15 +616,15 @@ class Custom_Permalinks_Frontend {
 			}
 		}
 
-		$custom_length = strlen( $custom_permalink );
-		if ( $custom_permalink
+		$custom_length = strlen( $kcg_custom_permalink );
+		if ( $kcg_custom_permalink
 			&& (
-				substr( $request, 0, $custom_length ) !== $custom_permalink
-				|| $request === $custom_permalink . '/'
+				substr( $request, 0, $custom_length ) !== $kcg_custom_permalink
+				|| $request === $kcg_custom_permalink . '/'
 			)
 		) {
 			// Request doesn't match permalink - redirect.
-			$url             = $custom_permalink;
+			$url             = $kcg_custom_permalink;
 			$original_length = strlen( $original_permalink );
 
 			if ( substr( $request, 0, $original_length ) === $original_permalink
@@ -636,7 +636,7 @@ class Custom_Permalinks_Frontend {
 					'/',
 					str_replace(
 						trim( $original_permalink, '/' ),
-						trim( $custom_permalink, '/' ),
+						trim( $kcg_custom_permalink, '/' ),
 						$request
 					)
 				);
@@ -662,8 +662,8 @@ class Custom_Permalinks_Frontend {
 	 * @return string customized Post Permalink.
 	 */
 	public function custom_post_link( $permalink, $post ) {
-		$custom_permalink = get_post_meta( $post->ID, 'custom_permalink', true );
-		if ( $custom_permalink ) {
+		$kcg_custom_permalink = get_post_meta( $post->ID, 'kcg_custom_permalink', true );
+		if ( $kcg_custom_permalink ) {
 			$post_type = 'post';
 			if ( isset( $post->post_type ) ) {
 				$post_type = $post->post_type;
@@ -679,7 +679,7 @@ class Custom_Permalinks_Frontend {
 			);
 
 			$permalink = $this->wpml_permalink_filter(
-				$custom_permalink,
+				$kcg_custom_permalink,
 				$language_code
 			);
 		} else {
@@ -716,8 +716,8 @@ class Custom_Permalinks_Frontend {
 	 * @return string customized Page Permalink.
 	 */
 	public function custom_page_link( $permalink, $page ) {
-		$custom_permalink = get_post_meta( $page, 'custom_permalink', true );
-		if ( $custom_permalink ) {
+		$kcg_custom_permalink = get_post_meta( $page, 'kcg_custom_permalink', true );
+		if ( $kcg_custom_permalink ) {
 			$language_code = apply_filters(
 				'wpml_element_language_code',
 				null,
@@ -728,7 +728,7 @@ class Custom_Permalinks_Frontend {
 			);
 
 			$permalink = $this->wpml_permalink_filter(
-				$custom_permalink,
+				$kcg_custom_permalink,
 				$language_code
 			);
 		} else {
@@ -767,10 +767,10 @@ class Custom_Permalinks_Frontend {
 	public function custom_term_link( $permalink, $term ) {
 		if ( isset( $term ) ) {
 			if ( isset( $term->term_id ) ) {
-				$custom_permalink = $this->term_permalink( $term->term_id );
+				$kcg_custom_permalink = $this->term_permalink( $term->term_id );
 			}
 
-			if ( $custom_permalink ) {
+			if ( $kcg_custom_permalink ) {
 				$language_code = null;
 				if ( isset( $term->term_taxonomy_id ) ) {
 					$term_type = 'category';
@@ -789,7 +789,7 @@ class Custom_Permalinks_Frontend {
 				}
 
 				$permalink = $this->wpml_permalink_filter(
-					$custom_permalink,
+					$kcg_custom_permalink,
 					$language_code
 				);
 			} elseif ( isset( $term->term_id ) ) {

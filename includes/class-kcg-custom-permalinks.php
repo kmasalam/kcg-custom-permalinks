@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Main KCG Custom Permalinks class.
  */
-class Custom_Permalinks {
+class KCG_Custom_Permalinks {
 	/**
 	 * KCG Custom Permalinks version.
 	 *
@@ -83,7 +83,7 @@ class Custom_Permalinks {
 	private function init_hooks() {
 		register_activation_hook(
 			KCG_CUSTOM_PERMALINKS_FILE,
-			array( 'Custom_Permalinks', 'add_roles' )
+			array( 'KCG_Custom_Permalinks', 'add_roles' )
 		);
 		add_action( 'plugins_loaded', array( $this, 'check_loaded_plugins' ) );
 	}
@@ -155,4 +155,4 @@ class Custom_Permalinks {
 	}
 }
 
-new Custom_Permalinks();
+new KCG_Custom_Permalinks();

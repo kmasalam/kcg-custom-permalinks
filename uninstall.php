@@ -12,7 +12,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 
-delete_post_meta_by_key( 'custom_permalink' );
+delete_post_meta_by_key( 'kcg_custom_permalink' );
 delete_option( 'custom_permalink_table' );
 
 $wp_role = get_role( 'administrator' );
