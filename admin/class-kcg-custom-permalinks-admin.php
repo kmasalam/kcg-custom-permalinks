@@ -16,9 +16,7 @@ class Custom_Permalinks_Admin {
 
 	public function __construct() {
 		
-		
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-
 		
 	}
 
@@ -84,7 +82,9 @@ class Custom_Permalinks_Admin {
 	public function post_permalinks_page() {
 		$this->kcg_load_style();
 		$this->kcg_admin_content();
-		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 1 );
+		
+		add_filter( 'admin_footer_text', array( $this, 'admin_footer_text' ), 5 );
+		
 	}
 
 	public function admin_footer_text() {
@@ -106,3 +106,5 @@ class Custom_Permalinks_Admin {
 }
 
 new Custom_Permalinks_Admin();
+
+

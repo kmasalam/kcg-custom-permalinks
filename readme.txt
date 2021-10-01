@@ -1,4 +1,4 @@
-=== KCG KCG Custom Permalinks ===
+=== KCG Custom Permalinks ===
 Contributors: kingscrestglobal
 Tags: permalink, url, link, address, custom, redirect, custom post type, GDPR, GDPR Compliant
 Tested up to: 5.8

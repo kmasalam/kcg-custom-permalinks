@@ -47,7 +47,11 @@ a .star svg polygon{
 a .star svg:hover polygon{
     fill:#ff7c00
 }
-
+input#custom-permalinks-post-slug {
+    border-radius: 0px;
+    border: 1px solid #777;
+    color: #333;
+}
 
 .kcg_admin_parent_container {
     display: flex;
