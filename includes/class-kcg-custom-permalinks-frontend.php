@@ -353,7 +353,7 @@ class Custom_Permalinks_Frontend {
 			|| ( null !== $original_url && ! $permalink_matched )
 		) {
 			// See if any terms have a matching permalink.
-			$table = get_option( 'custom_permalink_table' );
+			$table = get_option( 'kcg_custom_permalink_table' );
 			if ( $table ) {
 				$term_permalink = false;
 				foreach ( array_keys( $table ) as $permalink ) {
@@ -973,7 +973,7 @@ class Custom_Permalinks_Frontend {
 	 * @return bool Term link.
 	 */
 	public function term_permalink( $term_id ) {
-		$table = get_option( 'custom_permalink_table' );
+		$table = get_option( 'kcg_custom_permalink_table' );
 		if ( $table ) {
 			foreach ( $table as $link => $info ) {
 				if ( $info['id'] === $term_id ) {

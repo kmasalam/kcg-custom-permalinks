@@ -13,20 +13,20 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 delete_post_meta_by_key( 'kcg_custom_permalink' );
-delete_option( 'custom_permalink_table' );
+delete_option( 'kcg_custom_permalink_table' );
 
 $wp_role = get_role( 'administrator' );
 if ( ! empty( $wp_role ) ) {
-	$wp_role->remove_cap( 'cp_view_post_permalinks' );
-	$wp_role->remove_cap( 'cp_view_category_permalinks' );
+	$wp_role->remove_cap( 'kcg_cp_view_post_permalinks' );
+	$wp_role->remove_cap( 'kcg_cp_view_category_permalinks' );
 }
 
-$wp_role = get_role( 'custom_permalinks_manager' );
+$wp_role = get_role( 'kcg_custom_permalinks_manager' );
 if ( ! empty( $wp_role ) ) {
-	$wp_role->remove_cap( 'cp_view_post_permalinks' );
-	$wp_role->remove_cap( 'cp_view_category_permalinks' );
+	$wp_role->remove_cap( 'kcg_cp_view_post_permalinks' );
+	$wp_role->remove_cap( 'kcg_cp_view_category_permalinks' );
 
-	remove_role( 'custom_permalinks_manager' );
+	remove_role( 'kcg_custom_permalinks_manager' );
 }
 
 // Clear any cached data that has been removed.

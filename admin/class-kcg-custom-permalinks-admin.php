@@ -24,7 +24,7 @@ class Custom_Permalinks_Admin {
 		add_menu_page(
 			'KCG Custom Permalinks',
 			'KCG Custom Permalinks',
-			'cp_view_post_permalinks',
+			'kcg_cp_view_post_permalinks',
 			'kcg-cp-permalinks',
 			array( $this, 'post_permalinks_page' ),
 			'dashicons-admin-links'
@@ -33,7 +33,7 @@ class Custom_Permalinks_Admin {
 			'kcg-cp-permalinks',
 			'Post Types Permalinks',
 			'Post Types Permalinks',
-			'cp_view_post_permalinks',
+			'kcg_cp_view_post_permalinks',
 			'kcg-cp-permalinks',
 			array( $this, 'post_permalinks_page' )
 		);

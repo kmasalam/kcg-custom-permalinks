@@ -37,7 +37,7 @@ class KCG_Custom_Permalinks {
 	 */
 	private function define_constants() {
 		$this->define( 'CUSTOM_PERMALINKS_BASENAME', plugin_basename( KCG_CUSTOM_PERMALINKS_FILE ) );
-		$this->define( 'CUSTOM_PERMALINKS_PATH', plugin_dir_path( KCG_CUSTOM_PERMALINKS_FILE ) );
+		$this->define( 'KCG_CUSTOM_PERMALINKS_PATH', plugin_dir_path( KCG_CUSTOM_PERMALINKS_FILE ) );
 		$this->define( 'KCG_CUSTOM_PERMALINKS_VERSION', $this->version );
 	}
 
@@ -63,9 +63,9 @@ class KCG_Custom_Permalinks {
 	 * @access private
 	 */
 	private function includes() {
-		include_once CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-form.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-frontend.php';
-		include_once CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-admin.php';
+		include_once KCG_CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-form.php';
+		include_once KCG_CUSTOM_PERMALINKS_PATH . 'includes/class-kcg-custom-permalinks-frontend.php';
+		include_once KCG_CUSTOM_PERMALINKS_PATH . 'admin/class-kcg-custom-permalinks-admin.php';
 
 		$cp_form = new Custom_Permalinks_Form();
 		$cp_form->init();
@@ -91,50 +91,26 @@ class KCG_Custom_Permalinks {
 	
 	public static function add_roles() {
 		$admin_role      = get_role( 'administrator' );
-		$cp_role         = get_role( 'custom_permalinks_manager' );
+		$cp_role         = get_role( 'kcg_custom_permalinks_manager' );
 		$current_version = get_option( 'custom_permalinks_plugin_version', -1 );
 
 		if ( ! empty( $admin_role ) ) {
-			$admin_role->add_cap( 'cp_view_post_permalinks' );
-			$admin_role->add_cap( 'cp_view_category_permalinks' );
+			$admin_role->add_cap( 'kcg_cp_view_post_permalinks' );
+			$admin_role->add_cap( 'kcg_cp_view_category_permalinks' );
 		}
 
 		if ( empty( $cp_role ) ) {
 			add_role(
-				'custom_permalinks_manager',
+				'kcg_custom_permalinks_manager',
 				__( 'KCG Custom Permalinks Manager' ),
 				array(
-					'cp_view_post_permalinks'     => true,
-					'cp_view_category_permalinks' => true,
+					'kcg_cp_view_post_permalinks'     => true,
+					'kcg_cp_view_category_permalinks' => true,
 				)
 			);
 		}
 	}
 
-	/**
-	 * Sent details when plugin gets activated / updated ans set installed
-	 * version in options table.
-	 *
-	 * @since 1.6.1
-	 * @access public
-	 */
-
-
-	/**
-	 * Sent details when plugin gets deactivated.
-	 *
-	 * @since 1.6.1
-	 * @access public
-	 */
-	
-	/**
-	 * Check if role not exist then call the function to add it. Update site
-	 * details if plugin gets updated. Also, loads the plugin language files to
-	 * support different languages.
-	 *
-	 * @since 1.2.18
-	 * @access public
-	 */
 	public function check_loaded_plugins() {
 		if ( is_admin() ) {
 			$current_version = get_option( 'custom_permalinks_plugin_version', -1 );

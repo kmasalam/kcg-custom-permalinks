@@ -139,17 +139,7 @@ class Custom_Permalinks_Form {
 		);
 	}
 
-	/**
-	 * Set the meta_keys to protected which is created by the plugin.
-	 *
-	 * @since 1.4.0
-	 * @access public
-	 *
-	 * @param bool   $protected Whether the key is protected or not.
-	 * @param string $meta_key Meta key.
-	 *
-	 * @return bool `true` for the KCGcustom_permalink key.
-	 */
+	
 	public function protect_meta( $protected, $meta_key ) {
 		if ( 'kcg_custom_permalink' === $meta_key ) {
 			$protected = true;
@@ -161,14 +151,7 @@ class Custom_Permalinks_Form {
 	/**
 	 * Sanitize given string to make it standard URL. It's a copy of default
 	 * `sanitize_title_with_dashes` function with few changes.
-	 *
-	 * @since 2.0.0
-	 * @access private
-	 *
-	 * @param string      $permalink     String that needs to be sanitized.
-	 * @param string|null $language_code Language code.
-	 *
-	 * @return string Sanitized permalink.
+	 
 	 */
 	private function sanitize_permalink( $permalink, $language_code ) {
 		/*
@@ -596,8 +579,8 @@ class Custom_Permalinks_Form {
 		?>
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
-			var button = jQuery('#custom_permalink_form').parent().find('.submit');
-			button.remove().insertAfter(jQuery('#custom_permalink_form'));
+			var button = jQuery('#kcg_custom_permalink_form').parent().find('.submit');
+			button.remove().insertAfter(jQuery('#kcg_custom_permalink_form'));
 		});
 		</script>
 		<?php
@@ -605,18 +588,7 @@ class Custom_Permalinks_Form {
 
 	/**
 	 * Helper function to render form.
-	 *
-	 * @access private
-	 *
-	 * @param string     $permalink Permalink which is created by the plugin.
-	 * @param string     $original  Permalink which set by WordPress.
-	 * @param int|string $id        Post ID for Posts, Pages and custom post
-	 *                              types, Term ID for Taxonomy Edit form and
-	 *                              taxonomy slug in case of term add.
-	 * @param bool       $render_containers Shows Post/Term Edit.
-	 * @param string     $postname          Post Name.
-	 *
-	 * @return void
+	
 	 */
 	private function get_permalink_form( $permalink, $original, $id,
 		$render_containers = true, $postname = ''
@@ -646,7 +618,7 @@ class Custom_Permalinks_Form {
 		// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if ( $render_containers ) {
-			echo '<table class="form-table" id="custom_permalink_form">' .
+			echo '<table class="form-table" id="kcg_custom_permalink_form">' .
 				'<tr>' .
 					'<th scope="row">' . esc_html__( 'KCG Custom Permalink', 'kcg-custom-permalinks' ) . '</th>' .
 					'<td>';
@@ -774,7 +746,7 @@ class Custom_Permalinks_Form {
 				}
 
 				$permalink = $this->sanitize_permalink( $new_permalink, $language_code );
-				$table     = get_option( 'custom_permalink_table' );
+				$table     = get_option( 'kcg_custom_permalink_table' );
 
 				if ( $permalink && ! array_key_exists( $permalink, $table ) ) {
 					$table[ $permalink ] = array(
@@ -784,14 +756,14 @@ class Custom_Permalinks_Form {
 					);
 				}
 
-				update_option( 'custom_permalink_table', $table );
+				update_option( 'kcg_custom_permalink_table', $table );
 			}
 		}
 	}
 
 
 	public function delete_term_permalink( $term_id ) {
-		$table = get_option( 'custom_permalink_table' );
+		$table = get_option( 'kcg_custom_permalink_table' );
 		if ( $table ) {
 			foreach ( $table as $link => $info ) {
 				if ( $info['id'] === (int) $term_id ) {
@@ -801,7 +773,7 @@ class Custom_Permalinks_Form {
 			}
 		}
 
-		update_option( 'custom_permalink_table', $table );
+		update_option( 'kcg_custom_permalink_table', $table );
 	}
 
 	/**
